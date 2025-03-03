@@ -22,7 +22,7 @@ export const MessageCard = ({
         let res = await fetch("/api/admin?admin_key=" + ADMIN_KEY, {
             body: JSON.stringify({
                 id: value.id,
-                action: status,
+                status,
             }),
             method: "POST",
             headers: [["Content-Type", "application/json"]],

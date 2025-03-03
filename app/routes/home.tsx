@@ -1,6 +1,6 @@
 import { ActionIcon, Button, Divider, Group, Pagination, Paper, SimpleGrid, Stack, Text, Textarea, TextInput, Title } from "@mantine/core";
 import type { Route } from "./+types/home";
-import { CONFIG } from "~/config";
+import { CONFIG } from "common/config";
 import { useFetch } from "@mantine/hooks";
 import { IconReload } from "@tabler/icons-react";
 import { useState } from "react";

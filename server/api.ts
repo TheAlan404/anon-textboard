@@ -1,7 +1,8 @@
 import { Router } from "express";
 import { z } from "zod";
 import { Prisma, PrismaClient } from '@prisma/client'
-import { CONFIG } from "~/config";
+import { CONFIG } from "common/config";
+import { MessageSchema } from "common";
 
 const prisma = new PrismaClient()
 
@@ -36,7 +37,10 @@ api.get("/api/messages", async (req, res) => {
 api.post("/api/post", async (req, res) => {
     console.log("req.body", req.body)
 
-    const { content, author } = z.object({ content: z.string(), author: z.string().nullish() }).parse(req.body);
+    const { content, author } = MessageSchema.pick({
+        author: true,
+        content: true,
+    }).parse(req.body);
 
     await prisma.message.create({
         data: {
@@ -56,15 +60,15 @@ api.post("/api/admin", async (req, res) => {
         return;
     };
 
-    const { action, id } = z.object({
-        action: z.enum(["approved", "deleted"]),
-        id: z.number(),
+    const { status, id } = MessageSchema.pick({
+        status: true,
+        id: true,
     }).parse(req.body);
 
     await prisma.message.update({
         where: { id },
         data: {
-            status: action,
+            status,
         },
     });
 

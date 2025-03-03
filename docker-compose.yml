@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  textboard:
+    build: .
+    container_name: textboard
+    environment:
+      - DATABASE_URL=postgres://postgres:example@textboard_db:5433/textboard
+      - PORT=3016
+    ports:
+      - 3016:3016
+    depends_on:
+      - textboard_db
+    networks:
+      - textboardnetwork
+
+  textboard_db:
+    image: postgres:13
+    container_name: textboard_db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=example
+      - POSTGRES_DB=textboard
+      - PGPORT=5433
+    ports:
+      - "5433:5433"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - textboardnetwork
+
+volumes:
+  postgres_data:
+
+networks:
+  textboardnetwork:
+    driver: bridge
