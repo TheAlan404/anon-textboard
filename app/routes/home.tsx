@@ -18,21 +18,21 @@ export function meta({ }: Route.MetaArgs) {
 
 export default function Home() {
 	return (
-		<Stack align="center">
-			<Stack px="xs" py="xl" gap="xl" w={{ base: "100%", sm: "80%", md: "50%" }}>
-				<Stack gap={0} align="center" ta="center">
-					<Title>
-						{CONFIG.title}
-					</Title>
-					<Text>
-						{CONFIG.desc}
-					</Text>
-				</Stack>
-
-				<MessageSender />
-
-				<MessagesList />
+		<Stack align="center" w="100%">
+			<Stack gap={0} align="center" ta="center" pt="sm">
+				<Title>
+					{CONFIG.title}
+				</Title>
+				<Text>
+					{CONFIG.desc}
+				</Text>
 			</Stack>
+
+			<Stack px="xs" py="xl" gap="xl" w={{ base: "100%", sm: "80%", md: "50%" }}>
+				<MessageSender />
+			</Stack>
+
+			<MessagesList />
 		</Stack>
 	);
 }
@@ -53,7 +53,7 @@ export const MessageSender = () => {
 				method: "POST",
 				headers: [["Content-Type", "application/json"]],
 			});
-		} catch(e: any) {
+		} catch (e: any) {
 			setError(e);
 			notifications.show({
 				message: e.toString(),

@@ -22,7 +22,7 @@ export const MessagesList = () => {
     ]));
 
 	return (
-		<Stack>
+		<Stack w="100%" px="sm">
 			<Group>
 				<Pagination
 					total={data?.pageCount || 1}
@@ -46,7 +46,7 @@ export const MessagesList = () => {
 			</Group>
 
 			<Stack>
-				<SimpleGrid cols={{ base: 2, md: 3 }}>
+				<SimpleGrid cols={{ base: 1, xs: 2, md: 3 }}>
 					{data?.messages.map(message => (
 						<MessageCard
 							key={message.id}
